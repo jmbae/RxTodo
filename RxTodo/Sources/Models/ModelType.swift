@@ -19,7 +19,7 @@ protocol ModelType: Then {
 extension Collection where Self.Iterator.Element: Identifiable {
 
   func index(of element: Self.Iterator.Element) -> Self.Index? {
-    return self.index { $0.id == element.id }
+    return self.firstIndex { $0.id == element.id }
   }
 
 }

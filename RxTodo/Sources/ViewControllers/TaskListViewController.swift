@@ -114,7 +114,7 @@ final class TaskListViewController: BaseViewController, View {
       })
       .disposed(by: self.disposeBag)
 
-    self.tableView.rx.modelSelected(type(of: self.dataSource).Section.Item.self)
+    self.tableView.rx.modelSelected(type(of: self.dataSource).SectionModelSnapshot.Item.self)
       .filter(reactor.state.map { $0.isEditing })
       .map(reactor.reactorForEditingTask)
       .subscribe(onNext: { [weak self] reactor in

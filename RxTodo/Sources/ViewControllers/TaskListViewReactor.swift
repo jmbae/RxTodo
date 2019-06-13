@@ -158,7 +158,7 @@ final class TaskListViewReactor: Reactor {
 
   private func indexPath(forTaskID taskID: String, from state: State) -> IndexPath? {
     let section = 0
-    let item = state.sections[section].items.index { reactor in reactor.currentState.id == taskID }
+    let item = state.sections[section].items.firstIndex { reactor in reactor.currentState.id == taskID }
     if let item = item {
       return IndexPath(item: item, section: section)
     } else {

@@ -74,7 +74,7 @@ final class TaskService: BaseService, TaskServiceType {
     return self.fetchTasks()
       .flatMap { [weak self] tasks -> Observable<Task> in
         guard let `self` = self else { return .empty() }
-        guard let index = tasks.index(where: { $0.id == taskID }) else { return .empty() }
+        guard let index = tasks.firstIndex(where: { $0.id == taskID }) else { return .empty() }
         var tasks = tasks
         let newTask = tasks[index].with {
           $0.title = title
@@ -92,7 +92,7 @@ final class TaskService: BaseService, TaskServiceType {
     return self.fetchTasks()
       .flatMap { [weak self] tasks -> Observable<Task> in
         guard let `self` = self else { return .empty() }
-        guard let index = tasks.index(where: { $0.id == taskID }) else { return .empty() }
+        guard let index = tasks.firstIndex(where: { $0.id == taskID }) else { return .empty() }
         var tasks = tasks
         let deletedTask = tasks.remove(at: index)
         return self.saveTasks(tasks).map { deletedTask }
@@ -106,7 +106,7 @@ final class TaskService: BaseService, TaskServiceType {
     return self.fetchTasks()
       .flatMap { [weak self] tasks -> Observable<Task> in
         guard let `self` = self else { return .empty() }
-        guard let sourceIndex = tasks.index(where: { $0.id == taskID }) else { return .empty() }
+        guard let sourceIndex = tasks.firstIndex(where: { $0.id == taskID }) else { return .empty() }
         var tasks = tasks
         let task = tasks.remove(at: sourceIndex)
         tasks.insert(task, at: destinationIndex)
@@ -121,7 +121,7 @@ final class TaskService: BaseService, TaskServiceType {
     return self.fetchTasks()
       .flatMap { [weak self] tasks -> Observable<Task> in
         guard let `self` = self else { return .empty() }
-        guard let index = tasks.index(where: { $0.id == taskID }) else { return .empty() }
+        guard let index = tasks.firstIndex(where: { $0.id == taskID }) else { return .empty() }
         var tasks = tasks
         let newTask = tasks[index].with {
           $0.isDone = true
@@ -139,7 +139,7 @@ final class TaskService: BaseService, TaskServiceType {
     return self.fetchTasks()
       .flatMap { [weak self] tasks -> Observable<Task> in
         guard let `self` = self else { return .empty() }
-        guard let index = tasks.index(where: { $0.id == taskID }) else { return .empty() }
+        guard let index = tasks.firstIndex(where: { $0.id == taskID }) else { return .empty() }
         var tasks = tasks
         let newTask = tasks[index].with {
           $0.isDone = false
